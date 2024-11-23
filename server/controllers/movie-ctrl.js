@@ -42,41 +42,31 @@ updateMovie = async (req, res) => {
   }
 
   try {
-    const movie = Movie.findOne({ _id: req.params.id });
-    movie.name = body.name;
-    movie.time = body.time;
-    movie.rating = body.rating;
-
-    try {
-      await movie.save();
-      return res.status(200).json({
-        success: true,
-        id: movie._id,
-        message: 'Movie updated!',
-      });
-    } catch (err) {
-      return res.status(404).json({
-        err,
-        message: 'Movie not updated!',
-      });
-    }
+    await Movie.findByIdAndUpdate(req.params.id, body);
+    return res.status(200).json({
+      success: true,
+      id: movie._id,
+      message: 'Movie updated!',
+    });
   } catch (err) {
+    console.log(err);
     return res.status(404).json({
       err,
-      message: 'Movie not found!',
+      message: 'Movie not updated!',
     });
   }
 };
 
 deleteMovie = async (req, res) => {
   try {
-    const movie = Movie.findOneAndDelete({ _id: req.params.id });
+    const movie = await Movie.findByIdAndDelete(req.params.id);
 
     if (!movie) {
       return res.status(404).json({ success: false, error: `Movie not found` });
     }
     return res.status(200).json({ success: true, data: movie });
   } catch (err) {
+    console.log(err);
     return res.status(400).json({ success: false, error: err });
   }
 };
