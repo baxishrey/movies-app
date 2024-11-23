@@ -1,8 +1,8 @@
 services:
   mongodb:
-    image: bitnami/mongodb
+    image: mongo
     volumes:
-      - db-data:/bitnami/mongodb
+      - db-data:/data/db
     ports:
       - "27017:27017"
 
