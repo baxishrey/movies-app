@@ -1,0 +1,28 @@
+services:
+  mongodb:
+    image: bitnami/mongodb
+    volumes:
+      - db-data:/bitnami/mongodb
+    ports:
+      - "27017:27017"
+
+  backend:
+    image: backend
+    build: ./server
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URL=mongodb
+    depends_on:
+      - mongodb
+
+  frontend:
+    image: frontend
+    build: ./client
+    ports:
+      - "3001:3000"
+    environment:
+      - API_URL=backend
+
+volumes:
+  db-data:
