@@ -25,7 +25,7 @@ createMovie = async (req, res) => {
     });
   } catch (err) {
     return res.status(400).json({
-      error,
+      err,
       message: 'Movie not created!',
     });
   }
@@ -56,7 +56,7 @@ updateMovie = async (req, res) => {
       });
     } catch (err) {
       return res.status(404).json({
-        error,
+        err,
         message: 'Movie not updated!',
       });
     }
