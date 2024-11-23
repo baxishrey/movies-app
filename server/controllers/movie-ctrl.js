@@ -42,7 +42,7 @@ updateMovie = async (req, res) => {
   }
 
   try {
-    await Movie.findByIdAndUpdate(req.params.id, body);
+    const movie = await Movie.findByIdAndUpdate(req.params.id, body);
     return res.status(200).json({
       success: true,
       id: movie._id,
