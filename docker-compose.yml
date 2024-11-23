@@ -22,7 +22,7 @@ services:
     ports:
       - "3001:3000"
     environment:
-      - API_URL=backend
+      - REACT_APP_API_URL=backend
 
 volumes:
   db-data:
