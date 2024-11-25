@@ -1,9 +1,12 @@
 data "aws_region" "current" {
+}
+
+data "aws_caller_identity" "current" {
 
 }
 
 locals {
-  aws_region = data.aws_region.current.name
+  aws_region = data.aws_region.current.name  
 }
 
 variable "public_subnet_cidrs" {
@@ -30,7 +33,7 @@ variable "security_group_name" {
 
 variable "service_names" {
   type    = list(string)
-  default = ["mongodb", "backend", "frontend"]
+  default = ["backend", "frontend"]
 }
 
 variable "db_service_name" {
@@ -77,3 +80,16 @@ variable "app_port_mapping" {
     mongodb  = 27017
   }
 }
+
+variable "alb_port_mapping" {
+  type = object({
+    backend  = number
+    frontend = number
+  })
+
+  default = {
+    backend  = 3000
+    frontend = 80
+  }
+}
+
